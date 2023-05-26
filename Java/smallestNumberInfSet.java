@@ -14,7 +14,7 @@ class SmallestInfiniteSet {
         // If inf list is of length  1 we simply add next num to end & pop
         if (this.inf_set.size()==1){
             int elem = this.inf_set.get(0);
-            this.inf_set.add(elem);
+            this.inf_set.add(elem+1);
             this.inf_set.remove(0);
 
             return elem;
@@ -25,7 +25,9 @@ class SmallestInfiniteSet {
             this.inf_set.remove(0);
 
             // Now we must remove any -1 flags
-            for (Integer i : this.inf_set){
+            Integer[] clone = this.inf_set.toArray(new Integer[0]);
+            for (int x = 0; x < clone.length; x++){
+                int i = clone[x];
                 if (i > 0){break;}
                 if (i == -1){this.inf_set.remove(0);}
             }
@@ -52,13 +54,14 @@ class SmallestInfiniteSet {
             }
 
             newblock.addAll(this.inf_set);
+            this.inf_set = newblock;
             
         }
-        // case 3: num needs added within inf_set, may already exist
+        // case 3: num needs added within inf_set, may already exist, replace regardles
         else {
-            for (Integer i: this.inf_set){
-
-            }
+            int smallest = this.inf_set.get(0);
+            int index = num - smallest;
+            this.inf_set.set(index,num);
         }
     }
 }
